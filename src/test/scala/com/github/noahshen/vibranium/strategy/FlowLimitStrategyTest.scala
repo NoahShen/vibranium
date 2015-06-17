@@ -17,7 +17,9 @@ class FlowLimitStrategyTest extends FunSuite with BeforeAndAfter{
     val resOpt = flowLimitStrategy.acquire()
     assert(resOpt.isDefined)
     resOpt match {
-      case Some(res) => res.release
+      case Some(res: FlowResource) =>
+        println(s"slept time: ${res.timeSleptSecond}")
+        res.release
     }
   }
 }
