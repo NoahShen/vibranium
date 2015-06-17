@@ -14,12 +14,16 @@ class FlowLimitStrategyTest extends FunSuite with BeforeAndAfter{
   }
 
   test("flow limit") {
+//    val trySuccess = flowLimitStrategy.tryAcquire()
+//    assert (trySuccess)
+
     val resOpt = flowLimitStrategy.acquire()
     assert(resOpt.isDefined)
     resOpt match {
       case Some(res: FlowResource) =>
         println(s"slept time: ${res.timeSleptSecond}")
         res.release
+      case _ => fail()
     }
   }
 }
